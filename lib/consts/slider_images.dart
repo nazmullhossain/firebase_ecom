@@ -1,3 +1,5 @@
+import '../models/products_models.dart';
+
 class SliderImage{
    static List<String> offerImage=[
     "images/Offer1.jpg",
@@ -15,4 +17,83 @@ class SliderImage{
     "images/vergtablebg.jpg",
 
   ];
+
+   static List<ProductModel>productsList=[
+
+   ProductModel(
+       title: "Apricot",
+       price: 0.99,
+       salePrice: 0.35,
+       id: "2424",
+       imageUrl: "https://i.ibb.co/F0s3FHQ/Apricots.png",
+       isOneSale: false,
+       isPiece: false,
+       productCategoryName: "Fruits"),
+   ProductModel(
+       title: "Apricot",
+       price: 0.99,
+       salePrice: 0.35,
+       id: "2424",
+       imageUrl: "https://i.ibb.co/F0s3FHQ/Apricots.png",
+       isOneSale: false,
+       isPiece: false,
+       productCategoryName: "Fruits"),
+   ProductModel(
+       title: "Apricot",
+       price: 0.99,
+       salePrice: 0.35,
+       id: "2424",
+       imageUrl: "https://i.ibb.co/F0s3FHQ/Apricots.png",
+       isOneSale: false,
+       isPiece: false,
+       productCategoryName: "Fruits"),
+   ProductModel(
+       title: "Apricot",
+       price: 0.99,
+       salePrice: 0.35,
+       id: "2424",
+       imageUrl: "https://i.ibb.co/F0s3FHQ/Apricots.png",
+       isOneSale: false,
+       isPiece: false,
+       productCategoryName: "Fruits"),
+   ProductModel(
+       title: "Apricot",
+       price: 0.99,
+       salePrice: 0.35,
+       id: "2424",
+       imageUrl: "https://i.ibb.co/F0s3FHQ/Apricots.png",
+       isOneSale: false,
+       isPiece: false,
+       productCategoryName: "Fruits"),
+   ProductModel(
+       title: "Apricot",
+       price: 0.99,
+       salePrice: 0.35,
+       id: "2424",
+       imageUrl: "https://i.ibb.co/F0s3FHQ/Apricots.png",
+       isOneSale: false,
+       isPiece: false,
+       productCategoryName: "Fruits"),
+   ProductModel(
+       title: "Apricot",
+       price: 0.99,
+       salePrice: 0.35,
+       id: "2424",
+       imageUrl: "https://i.ibb.co/F0s3FHQ/Apricots.png",
+       isOneSale: false,
+       isPiece: false,
+       productCategoryName: "Fruits"),
+   ProductModel(
+       title: "Apricot",
+       price: 0.99,
+       salePrice: 0.35,
+       id: "2424",
+       imageUrl: "https://i.ibb.co/F0s3FHQ/Apricots.png",
+       isOneSale: false,
+       isPiece: false,
+       productCategoryName: "Fruits"),
+
+   ];
+
+
 }

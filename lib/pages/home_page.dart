@@ -107,8 +107,13 @@ class _HomePageState extends State<HomePage> {
                physics: NeverScrollableScrollPhysics(),
                crossAxisCount: 2,
            childAspectRatio: size.width/(size.height*0.70),
-             children: List.generate(4, (index) {
-               return FeedItemWidgets();
+             children: List.generate(
+                 SliderImage.productsList.length<4?
+                 SliderImage.productsList.length:
+                 4, (index) {
+               return FeedItemWidgets(
+                 title: SliderImage.productsList[index].title,
+                 imageUrl: SliderImage.productsList[index].imageUrl,);
              }),
            )
           ],

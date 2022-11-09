@@ -8,7 +8,8 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import '../utils/utils.dart';
 
 class FeedItemWidgets extends StatefulWidget {
-  const FeedItemWidgets({Key? key}) : super(key: key);
+  const FeedItemWidgets({Key? key,required this.title,required this.imageUrl}) : super(key: key);
+  final String imageUrl,title;
 
   @override
   State<FeedItemWidgets> createState() => _FeedItemWidgetsState();
@@ -46,7 +47,7 @@ class _FeedItemWidgetsState extends State<FeedItemWidgets> {
           child: Column(
             children: [
               FancyShimmerImage(
-                imageUrl: "https://i.ibb.co/F0s3FHQ/Apricots.png",
+                imageUrl: widget.imageUrl,
                 height: size.width * 0.21,
                 width: size.width * 0.2,
                 boxFit: BoxFit.fill,
@@ -57,18 +58,24 @@ class _FeedItemWidgetsState extends State<FeedItemWidgets> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    TextWidget(
-                        color: color,
-                        maxLines: 10,
-                        textSize: 22,
-                        text: "Title",
-                        isTitle: true),
-                    GestureDetector(
-                      onTap: () {},
-                      child: Icon(
-                        IconlyLight.heart,
-                        size: 22,
-                        color: color,
+                    Flexible(
+                      flex:3,
+                      child: TextWidget(
+                          color: color,
+                          maxLines: 1,
+                          textSize: 18,
+                          text: widget.title,
+                          isTitle: true),
+                    ),
+                    Flexible(
+                      flex: 1,
+                      child: GestureDetector(
+                        onTap: () {},
+                        child: Icon(
+                          IconlyLight.heart,
+                          size: 22,
+                          color: color,
+                        ),
                       ),
                     ),
                   ],

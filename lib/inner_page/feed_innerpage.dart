@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 
+import '../consts/slider_images.dart';
 import '../service/golobal_method.dart';
 import '../utils/utils.dart';
 import '../widgets/feed_items_widgets.dart';
@@ -9,6 +10,7 @@ import '../widgets/text_widgets.dart';
 class FeedInnerPage extends StatefulWidget {
   const FeedInnerPage({Key? key}) : super(key: key);
   static const routeName = "/FeedInnerPage";
+
 
   @override
   State<FeedInnerPage> createState() => _FeedInnerPageState();
@@ -103,8 +105,11 @@ class _FeedInnerPageState extends State<FeedInnerPage> {
               physics: NeverScrollableScrollPhysics(),
               crossAxisCount: 2,
               childAspectRatio: size.width/(size.height*0.70),
-              children: List.generate(20, (index) {
-                return FeedItemWidgets();
+              children: List.generate(SliderImage.productsList.length, (index) {
+                return FeedItemWidgets(
+                  title: SliderImage.productsList[index].title,
+                  imageUrl: SliderImage.productsList[index].imageUrl,
+                );
               }),
             ),
           ],

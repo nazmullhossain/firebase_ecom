@@ -2,6 +2,7 @@ import 'package:firecom/widgets/text_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 
+import '../consts/slider_images.dart';
 import '../utils/utils.dart';
 import '../widgets/feed_items_widgets.dart';
 
@@ -15,7 +16,7 @@ class OnSaleInnerPage extends StatelessWidget {
     final themeState = utils.getTheme;
     final Color color = Utils(context).color;
     final Size size = Utils(context).screenSize;
-    bool _isEmty = true;
+    bool _isEmty = false;
     return Scaffold(
       appBar: AppBar(
         leading: InkWell(
@@ -69,7 +70,8 @@ class OnSaleInnerPage extends StatelessWidget {
               crossAxisCount: 2,
               childAspectRatio: size.width / (size.height * 0.70),
               children: List.generate(20, (index) {
-                return FeedItemWidgets();
+                return FeedItemWidgets(title: SliderImage.productsList[index].title,
+                  imageUrl: SliderImage.productsList[index].imageUrl,);
               }),
             ),
     );
