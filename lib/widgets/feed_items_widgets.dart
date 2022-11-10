@@ -1,15 +1,17 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
+import 'package:firecom/models/products_models.dart';
 import 'package:firecom/widgets/price_widget.dart';
 import 'package:firecom/widgets/text_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:provider/provider.dart';
 
 import '../utils/utils.dart';
 
 class FeedItemWidgets extends StatefulWidget {
-  const FeedItemWidgets({Key? key,required this.title,required this.imageUrl}) : super(key: key);
-  final String imageUrl,title;
+  const FeedItemWidgets({Key? key,}) : super(key: key);
+
 
   @override
   State<FeedItemWidgets> createState() => _FeedItemWidgetsState();
@@ -31,7 +33,7 @@ class _FeedItemWidgetsState extends State<FeedItemWidgets> {
   }
   @override
   Widget build(BuildContext context) {
-
+final productModel=Provider.of<ProductModel>(context);
     final Utils utils = Utils(context);
     final themeState = utils.getTheme;
     final Color color = Utils(context).color;
@@ -47,7 +49,7 @@ class _FeedItemWidgetsState extends State<FeedItemWidgets> {
           child: Column(
             children: [
               FancyShimmerImage(
-                imageUrl: widget.imageUrl,
+                imageUrl: productModel.imageUrl,
                 height: size.width * 0.21,
                 width: size.width * 0.2,
                 boxFit: BoxFit.fill,
@@ -64,7 +66,7 @@ class _FeedItemWidgetsState extends State<FeedItemWidgets> {
                           color: color,
                           maxLines: 1,
                           textSize: 18,
-                          text: widget.title,
+                          text: productModel.title,
                           isTitle: true),
                     ),
                     Flexible(
@@ -88,9 +90,10 @@ class _FeedItemWidgetsState extends State<FeedItemWidgets> {
                   children: [
                    Flexible(
                      flex:4,
-                     child: PriceWidget(price: 5.9,
+                     child: PriceWidget(
+                         price: productModel.price,
                          textPrice: _quantityTextController.text,
-                         salePrice: 2.99,
+                         salePrice: productModel.salePrice,
                          isOnSale: true),
                    ),
                     SizedBox(width: 2,),
@@ -103,7 +106,7 @@ class _FeedItemWidgetsState extends State<FeedItemWidgets> {
                                 maxLines: 1,
                                 textSize: 10,
                                 isTitle: true,
-                                text: "KG"),
+                                text: productModel.isPiece?"Pices": "KG"),
                           ),
                           SizedBox(width: 3,),
                           Expanded(

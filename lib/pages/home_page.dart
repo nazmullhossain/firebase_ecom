@@ -1,4 +1,5 @@
 import 'package:card_swiper/card_swiper.dart';
+import 'package:firecom/models/products_models.dart';
 import 'package:firecom/provider/dark_theme-provider.dart';
 import 'package:firecom/service/golobal_method.dart';
 import 'package:firecom/utils/utils.dart';
@@ -10,6 +11,7 @@ import 'package:provider/provider.dart';
 import '../consts/slider_images.dart';
 import '../inner_page/feed_innerpage.dart';
 import '../inner_page/on_sale_innepage.dart';
+import '../main_provider/products_provider.dart';
 import '../widgets/feed_items_widgets.dart';
 import '../widgets/one_sale_widget.dart';
 import '../widgets/product_title_widgets.dart';
@@ -32,6 +34,8 @@ class _HomePageState extends State<HomePage> {
   // ];
   @override
   Widget build(BuildContext context) {
+    final productProviders=Provider.of<ProductProvider>(context);
+    List<ProductModel>allProduct=productProviders.getProducts;
     GlobalMethods globalMethods=GlobalMethods();
     final Utils utils=Utils(context);
     final themeState=utils.getTheme;
@@ -108,12 +112,15 @@ class _HomePageState extends State<HomePage> {
                crossAxisCount: 2,
            childAspectRatio: size.width/(size.height*0.70),
              children: List.generate(
-                 SliderImage.productsList.length<4?
-                 SliderImage.productsList.length:
+                 allProduct.length<4?
+                 allProduct.length:
                  4, (index) {
-               return FeedItemWidgets(
-                 title: SliderImage.productsList[index].title,
-                 imageUrl: SliderImage.productsList[index].imageUrl,);
+               return ChangeNotifierProvider.value(
+                 value: allProduct[index],
+                 child: FeedItemWidgets(
+
+                 ),
+               );
              }),
            )
           ],

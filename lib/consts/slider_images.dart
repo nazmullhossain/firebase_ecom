@@ -18,82 +18,82 @@ class SliderImage{
 
   ];
 
-   static List<ProductModel>productsList=[
-
-   ProductModel(
-       title: "Apricot",
-       price: 0.99,
-       salePrice: 0.35,
-       id: "2424",
-       imageUrl: "https://i.ibb.co/F0s3FHQ/Apricots.png",
-       isOneSale: false,
-       isPiece: false,
-       productCategoryName: "Fruits"),
-   ProductModel(
-       title: "Apricot",
-       price: 0.99,
-       salePrice: 0.35,
-       id: "2424",
-       imageUrl: "https://i.ibb.co/F0s3FHQ/Apricots.png",
-       isOneSale: false,
-       isPiece: false,
-       productCategoryName: "Fruits"),
-   ProductModel(
-       title: "Apricot",
-       price: 0.99,
-       salePrice: 0.35,
-       id: "2424",
-       imageUrl: "https://i.ibb.co/F0s3FHQ/Apricots.png",
-       isOneSale: false,
-       isPiece: false,
-       productCategoryName: "Fruits"),
-   ProductModel(
-       title: "Apricot",
-       price: 0.99,
-       salePrice: 0.35,
-       id: "2424",
-       imageUrl: "https://i.ibb.co/F0s3FHQ/Apricots.png",
-       isOneSale: false,
-       isPiece: false,
-       productCategoryName: "Fruits"),
-   ProductModel(
-       title: "Apricot",
-       price: 0.99,
-       salePrice: 0.35,
-       id: "2424",
-       imageUrl: "https://i.ibb.co/F0s3FHQ/Apricots.png",
-       isOneSale: false,
-       isPiece: false,
-       productCategoryName: "Fruits"),
-   ProductModel(
-       title: "Apricot",
-       price: 0.99,
-       salePrice: 0.35,
-       id: "2424",
-       imageUrl: "https://i.ibb.co/F0s3FHQ/Apricots.png",
-       isOneSale: false,
-       isPiece: false,
-       productCategoryName: "Fruits"),
-   ProductModel(
-       title: "Apricot",
-       price: 0.99,
-       salePrice: 0.35,
-       id: "2424",
-       imageUrl: "https://i.ibb.co/F0s3FHQ/Apricots.png",
-       isOneSale: false,
-       isPiece: false,
-       productCategoryName: "Fruits"),
-   ProductModel(
-       title: "Apricot",
-       price: 0.99,
-       salePrice: 0.35,
-       id: "2424",
-       imageUrl: "https://i.ibb.co/F0s3FHQ/Apricots.png",
-       isOneSale: false,
-       isPiece: false,
-       productCategoryName: "Fruits"),
-
-   ];
+   // static List<ProductModel>productsList=[
+   //
+   // ProductModel(
+   //     title: "Apricot",
+   //     price: 0.99,
+   //     salePrice: 0.35,
+   //     id: "2424",
+   //     imageUrl: "https://i.ibb.co/F0s3FHQ/Apricots.png",
+   //     isOneSale: false,
+   //     isPiece: false,
+   //     productCategoryName: "Fruits"),
+   // ProductModel(
+   //     title: "Apricot",
+   //     price: 0.99,
+   //     salePrice: 0.35,
+   //     id: "2424",
+   //     imageUrl: "https://i.ibb.co/F0s3FHQ/Apricots.png",
+   //     isOneSale: false,
+   //     isPiece: false,
+   //     productCategoryName: "Fruits"),
+   // ProductModel(
+   //     title: "Apricot",
+   //     price: 0.99,
+   //     salePrice: 0.35,
+   //     id: "2424",
+   //     imageUrl: "https://i.ibb.co/F0s3FHQ/Apricots.png",
+   //     isOneSale: false,
+   //     isPiece: false,
+   //     productCategoryName: "Fruits"),
+   // ProductModel(
+   //     title: "Apricot",
+   //     price: 0.99,
+   //     salePrice: 0.35,
+   //     id: "2424",
+   //     imageUrl: "https://i.ibb.co/F0s3FHQ/Apricots.png",
+   //     isOneSale: false,
+   //     isPiece: false,
+   //     productCategoryName: "Fruits"),
+   // ProductModel(
+   //     title: "Apricot",
+   //     price: 0.99,
+   //     salePrice: 0.35,
+   //     id: "2424",
+   //     imageUrl: "https://i.ibb.co/F0s3FHQ/Apricots.png",
+   //     isOneSale: false,
+   //     isPiece: false,
+   //     productCategoryName: "Fruits"),
+   // ProductModel(
+   //     title: "Apricot",
+   //     price: 0.99,
+   //     salePrice: 0.35,
+   //     id: "2424",
+   //     imageUrl: "https://i.ibb.co/F0s3FHQ/Apricots.png",
+   //     isOneSale: false,
+   //     isPiece: false,
+   //     productCategoryName: "Fruits"),
+   // ProductModel(
+   //     title: "Apricot",
+   //     price: 0.99,
+   //     salePrice: 0.35,
+   //     id: "2424",
+   //     imageUrl: "https://i.ibb.co/F0s3FHQ/Apricots.png",
+   //     isOneSale: false,
+   //     isPiece: false,
+   //     productCategoryName: "Fruits"),
+   // ProductModel(
+   //     title: "Apricot",
+   //     price: 0.99,
+   //     salePrice: 0.35,
+   //     id: "2424",
+   //     imageUrl: "https://i.ibb.co/F0s3FHQ/Apricots.png",
+   //     isOneSale: false,
+   //     isPiece: false,
+   //     productCategoryName: "Fruits"),
+   //
+   // ];
 
 
 }
