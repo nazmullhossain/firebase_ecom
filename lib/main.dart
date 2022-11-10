@@ -16,6 +16,7 @@ import 'auth/register_page.dart';
 import 'emty_page.dart';
 import 'inner_page/feed_innerpage.dart';
 import 'inner_page/on_sale_innepage.dart';
+import 'main_provider/products_provider.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -57,7 +58,8 @@ class _MyAppState extends State<MyApp> {
       providers: [
         ChangeNotifierProvider(create: (_) {
           return themeChangeProvider;
-        })
+        }),
+        ChangeNotifierProvider(create: (_)=>ProductProvider())
       ],
       child:
           Consumer<DarkThemeProvider>(builder: (context, themeProvider, child) {

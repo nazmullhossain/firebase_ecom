@@ -1,8 +1,11 @@
 import 'package:firecom/widgets/text_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:provider/provider.dart';
 
 import '../consts/slider_images.dart';
+import '../main_provider/products_provider.dart';
+import '../models/products_models.dart';
 import '../utils/utils.dart';
 import '../widgets/feed_items_widgets.dart';
 
@@ -12,6 +15,13 @@ class OnSaleInnerPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //we can use another way
+    // final productProviders=Provider.of<ProductProvider>(context);
+    // List<ProductModel>allProduct=productProviders.getProducts;
+    final productModel=Provider.of<ProductModel>(context);
+
+
+
     final Utils utils = Utils(context);
     final themeState = utils.getTheme;
     final Color color = Utils(context).color;
@@ -70,8 +80,8 @@ class OnSaleInnerPage extends StatelessWidget {
               crossAxisCount: 2,
               childAspectRatio: size.width / (size.height * 0.70),
               children: List.generate(20, (index) {
-                return FeedItemWidgets(title: SliderImage.productsList[index].title,
-                  imageUrl: SliderImage.productsList[index].imageUrl,);
+                return FeedItemWidgets(
+                  );
               }),
             ),
     );
