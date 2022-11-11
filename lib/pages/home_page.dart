@@ -36,6 +36,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final productProviders=Provider.of<ProductProvider>(context);
     List<ProductModel>allProduct=productProviders.getProducts;
+    List<ProductModel>onSaleProduct=productProviders.getOnSaleProduct;
     GlobalMethods globalMethods=GlobalMethods();
     final Utils utils=Utils(context);
     final themeState=utils.getTheme;
@@ -66,7 +67,13 @@ class _HomePageState extends State<HomePage> {
             ),
            SizedBox(height: 5,),
            TextButton(onPressed: (){
-             globalMethods.navigateTo(context: context,routeName: OnSaleInnerPage.routeName);
+             // globalMethods.navigateTo(context: context,routeName: OnSaleInnerPage.routeName);
+
+
+             Navigator.push(
+               context,
+               MaterialPageRoute(builder: (context) => const OnSaleInnerPage()),
+             );
            }, child: Text("View all")),
 
            Row(
@@ -87,15 +94,22 @@ class _HomePageState extends State<HomePage> {
                  child: SizedBox(
                    height: size.height*0.24,
                    child: ListView.builder(
-                     itemCount: 10,
+                     itemCount: allProduct.length<10
+                       ? allProduct.length:10,
                        scrollDirection: Axis.horizontal,
                        itemBuilder: (context,index){
-                     return OneSaleWidget();
+                     return ChangeNotifierProvider.value(
+                       value: allProduct[index],
+                         child: OneSaleWidget());
                    }),
                  ),
                ),
              ],
            ),
+
+
+
+
             ProductTitleWidget(productTitle: "Product All", viewTitle: "Select All", viewButton: (){
               // globalMethods.navigateTo(context: context,routeName: FeedInnerPage.routeName);
               Navigator.push(

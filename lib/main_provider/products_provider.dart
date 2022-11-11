@@ -8,76 +8,82 @@ class ProductProvider with ChangeNotifier{
     return _productsList;
   }
 
-  static List<ProductModel>_productsList=[
+  List<ProductModel>get getOnSaleProduct{
+    return _productsList.where((element) => element.isOneSale).toList();
+  }
+  ProductModel findProdById(String productId){
+    return _productsList.firstWhere((element) => element.id==productId);
+  }
+  static final List<ProductModel>_productsList=[
 
     ProductModel(
         title: "Apricot",
         price: 0.99,
         salePrice: 0.35,
-        id: "2424",
+        id: "1",
         imageUrl: "https://i.ibb.co/F0s3FHQ/Apricots.png",
         isOneSale: false,
         isPiece: false,
         productCategoryName: "Fruits"),
     ProductModel(
-        title: "Apricot",
+        title: "Vegitable",
         price: 0.99,
         salePrice: 0.35,
-        id: "2424",
+        id: "2",
         imageUrl: "https://i.ibb.co/F0s3FHQ/Apricots.png",
         isOneSale: false,
         isPiece: false,
         productCategoryName: "Fruits"),
     ProductModel(
-        title: "Apricot",
+        title: "Mango",
         price: 0.99,
         salePrice: 0.35,
-        id: "2424",
+        id: "3",
         imageUrl: "https://i.ibb.co/F0s3FHQ/Apricots.png",
         isOneSale: false,
         isPiece: false,
         productCategoryName: "Fruits"),
     ProductModel(
-        title: "Apricot",
+        title: "Bananana",
         price: 0.99,
         salePrice: 0.35,
-        id: "2424",
+        id: "4",
         imageUrl: "https://i.ibb.co/F0s3FHQ/Apricots.png",
         isOneSale: false,
         isPiece: false,
         productCategoryName: "Fruits"),
     ProductModel(
-        title: "Apricot",
+        title: "Avocado",
         price: 0.99,
         salePrice: 0.35,
-        id: "2424",
+        id: "5",
+        imageUrl: "https://i.ibb.co/9VkXw5L/Avocat.png",
+        isOneSale: false,
+        isPiece: false,
+        productCategoryName: "Fruits"),
+    ProductModel(
+        title: "Panjabi",
+        price: 0.99,
+        salePrice: 0.35,
+        id: "6",
         imageUrl: "https://i.ibb.co/F0s3FHQ/Apricots.png",
         isOneSale: false,
         isPiece: false,
         productCategoryName: "Fruits"),
     ProductModel(
-        title: "Apricot",
+        title: "Dog",
         price: 0.99,
         salePrice: 0.35,
-        id: "2424",
+        id: "7",
         imageUrl: "https://i.ibb.co/F0s3FHQ/Apricots.png",
         isOneSale: false,
         isPiece: false,
         productCategoryName: "Fruits"),
     ProductModel(
-        title: "Apricot",
+        title: "Jack Fruit",
         price: 0.99,
         salePrice: 0.35,
-        id: "2424",
-        imageUrl: "https://i.ibb.co/F0s3FHQ/Apricots.png",
-        isOneSale: false,
-        isPiece: false,
-        productCategoryName: "Fruits"),
-    ProductModel(
-        title: "Apricot",
-        price: 0.99,
-        salePrice: 0.35,
-        id: "2424",
+        id: "8",
         imageUrl: "https://i.ibb.co/F0s3FHQ/Apricots.png",
         isOneSale: false,
         isPiece: false,

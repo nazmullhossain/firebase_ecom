@@ -4,7 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:provider/provider.dart';
 
+import '../main_provider/products_provider.dart';
 import '../utils/utils.dart';
 
 class ProductDetailsPage extends StatefulWidget {
@@ -35,11 +37,22 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
   }
   @override
   Widget build(BuildContext context) {
+
     final Utils utils = Utils(context);
     final themeState = utils.getTheme;
     final Color color = Utils(context).color;
     final Size size = Utils(context).screenSize;
+    final productProviders=Provider.of<ProductProvider>(context);
+    //findProdById method return String so your can get data this approch
+    final productId=ModalRoute.of(context)!.settings.arguments as String;
+    final getCurrentProduct=productProviders.findProdById(productId);
+    double userPrice=getCurrentProduct.isOneSale?
+    getCurrentProduct.salePrice:
+    getCurrentProduct.price;
+    double totalPrice=userPrice*int.parse(_quantityTextConroller.text);
+
     return Scaffold(
+
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -59,7 +72,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
           Flexible(
             flex: 2,
             child: FancyShimmerImage(
-              imageUrl: "https://i.ibb.co/F0s3FHQ/Apricots.png",
+              imageUrl: getCurrentProduct.imageUrl,
               boxFit: BoxFit.scaleDown,
               width: size.width,
             ),
@@ -86,7 +99,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                   color: color,
                                   maxLines: 1,
                                   textSize: 18,
-                                  text: "Title")),
+                                  text: getCurrentProduct.title)),
                           GestureDetector(
                             onTap: () {},
                             child: Icon(
@@ -112,19 +125,20 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                               color: Colors.green,
                               maxLines: 1,
                               textSize: 18,
-                              text: "\$2.59"),
+                              text: "\$${userPrice.toStringAsFixed(2)}/"),
                           TextWidget(
                               color: color,
                               maxLines: 1,
                               textSize: 12,
-                              text: "/kg"),
+                              text: getCurrentProduct.isPiece? "Piece":'/KG'),
                           SizedBox(
                             width: 10,
                           ),
                           Visibility(
-                              visible: true,
+                            //if sale price is not show you . addding code feed item isOne sale option
+                              visible:  getCurrentProduct.isOneSale?true:false,
                               child: Text(
-                                "\$3.9",
+                                "\$${getCurrentProduct.price.toStringAsFixed(2)}",
                                 style: TextStyle(
                                     fontSize: 15,
                                     color: color,
@@ -247,7 +261,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                         color: color,
                                         maxLines: 1,
                                         textSize: 20,
-                                        text: "\$2.59/"),
+                                        text: "\$${totalPrice.toStringAsFixed(2)}/"),
                                     TextWidget(
                                         color: color,
                                         maxLines: 1,

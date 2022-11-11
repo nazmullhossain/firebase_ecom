@@ -37,6 +37,9 @@ class _FeedInnerPageState extends State<FeedInnerPage> {
   GlobalMethods globalMethods=GlobalMethods();
   @override
   Widget build(BuildContext context) {
+
+
+
     final productProviders=Provider.of<ProductProvider>(context);
     List<ProductModel>allProduct=productProviders.getProducts;
    // another way get data from provider

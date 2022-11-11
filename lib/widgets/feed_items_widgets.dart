@@ -1,5 +1,6 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:firecom/models/products_models.dart';
+import 'package:firecom/pages/product_details_page.dart';
 import 'package:firecom/widgets/price_widget.dart';
 import 'package:firecom/widgets/text_widgets.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +45,10 @@ final productModel=Provider.of<ProductModel>(context);
         color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(12),
         child: InkWell(
-          onTap: () {},
+          onTap: () {
+            Navigator.pushNamed(context, ProductDetailsPage.routeName,
+            arguments: productModel.id);
+          },
           borderRadius: BorderRadius.circular(12),
           child: Column(
             children: [
@@ -94,7 +98,7 @@ final productModel=Provider.of<ProductModel>(context);
                          price: productModel.price,
                          textPrice: _quantityTextController.text,
                          salePrice: productModel.salePrice,
-                         isOnSale: true),
+                         isOnSale: productModel.isOneSale),
                    ),
                     SizedBox(width: 2,),
                     Flexible(

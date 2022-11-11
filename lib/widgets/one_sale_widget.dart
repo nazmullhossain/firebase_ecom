@@ -1,8 +1,11 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
+import 'package:firecom/models/products_models.dart';
+import 'package:firecom/pages/product_details_page.dart';
 import 'package:firecom/widgets/price_widget.dart';
 import 'package:firecom/widgets/text_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:provider/provider.dart';
 
 import '../utils/utils.dart';
 
@@ -16,10 +19,13 @@ class OneSaleWidget extends StatefulWidget {
 class _OneSaleWidgetState extends State<OneSaleWidget> {
   @override
   Widget build(BuildContext context) {
+    final productModel=Provider.of<ProductModel>(context);
     final Utils utils=Utils(context);
     final themeState=utils.getTheme;
     final Size size=Utils( context).screenSize;
+    // final productModel=Provider.of<ProductModel>(context);
     final Color color=Utils(context).color;
+    // final productModel=Provider.of<ProductModel>(context);
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Material(
@@ -27,7 +33,9 @@ class _OneSaleWidgetState extends State<OneSaleWidget> {
             color: Theme.of(context).cardColor.withOpacity(0.9),
             child: InkWell(
               borderRadius: BorderRadius.circular(12),
-              onTap: (){},
+              onTap: (){
+                Navigator.pushNamed(context, ProductDetailsPage.routeName,arguments: productModel.id);
+              },
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
@@ -36,7 +44,8 @@ class _OneSaleWidgetState extends State<OneSaleWidget> {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        FancyShimmerImage(imageUrl: "https://i.ibb.co/F0s3FHQ/Apricots.png",
+                        FancyShimmerImage(
+                          imageUrl: productModel.imageUrl,
                           height: size.width*0.22,
                           width: size.width*0.22,
                           boxFit: BoxFit.fill,),
@@ -51,7 +60,7 @@ class _OneSaleWidgetState extends State<OneSaleWidget> {
                                 color: color,
                                 maxLines: 10,
                                 textSize: 22,
-                                text: "1KG",
+                                text: productModel.isOneSale?"1Piece":"1KG",
                             isTitle:true),
                             SizedBox(height: 6,),
                             Row(
@@ -73,14 +82,14 @@ class _OneSaleWidgetState extends State<OneSaleWidget> {
                         )
                       ],
                     ),
-                    PriceWidget(price: 5.99,
+                    PriceWidget(price: productModel.price,
                         textPrice: "1",
-                        salePrice: 2.99,
+                        salePrice:productModel.salePrice,
                         isOnSale: true),
                     SizedBox(height: 3,),
                     TextWidget(color: color,
                         maxLines: 10, textSize:
-                        16, text: "Product Title",
+                        16, text: productModel.title,
                         isTitle: true)
 
                   ],

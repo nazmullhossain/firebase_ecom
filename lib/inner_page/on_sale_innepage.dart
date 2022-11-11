@@ -8,6 +8,7 @@ import '../main_provider/products_provider.dart';
 import '../models/products_models.dart';
 import '../utils/utils.dart';
 import '../widgets/feed_items_widgets.dart';
+import '../widgets/one_sale_widget.dart';
 
 class OnSaleInnerPage extends StatelessWidget {
   static const routeName = "/OnSaleInnerPage";
@@ -15,11 +16,9 @@ class OnSaleInnerPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //we can use another way
-    // final productProviders=Provider.of<ProductProvider>(context);
-    // List<ProductModel>allProduct=productProviders.getProducts;
-    final productModel=Provider.of<ProductModel>(context);
 
+    final productProviders=Provider.of<ProductProvider>(context);
+    List<ProductModel>allProduct=productProviders.getProducts;
 
 
     final Utils utils = Utils(context);
@@ -49,7 +48,7 @@ class OnSaleInnerPage extends StatelessWidget {
           text: "Product on sale",
         ),
       ),
-      body: _isEmty
+      body: allProduct.isEmpty
           ? Center(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -79,9 +78,12 @@ class OnSaleInnerPage extends StatelessWidget {
               // physics: NeverScrollableScrollPhysics(),
               crossAxisCount: 2,
               childAspectRatio: size.width / (size.height * 0.70),
-              children: List.generate(20, (index) {
-                return FeedItemWidgets(
-                  );
+              children: List.generate(allProduct.length, (index) {
+                return ChangeNotifierProvider.value(
+                  value: allProduct[index],
+                  child: OneSaleWidget(
+                    ),
+                );
               }),
             ),
     );
