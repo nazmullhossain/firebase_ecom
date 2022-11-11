@@ -11,9 +11,19 @@ class ProductProvider with ChangeNotifier{
   List<ProductModel>get getOnSaleProduct{
     return _productsList.where((element) => element.isOneSale).toList();
   }
+
+  //indivisuln product id and then show productDetailsPage
   ProductModel findProdById(String productId){
     return _productsList.firstWhere((element) => element.id==productId);
   }
+  //catgory page
+List<ProductModel>findByCatagory(String categoryName){
+    List<ProductModel>_catagoryList=_productsList.
+  where((element) => element.productCategoryName.toLowerCase().
+    contains(categoryName.toLowerCase())).toList();
+    return _catagoryList;
+}
+
   static final List<ProductModel>_productsList=[
 
     ProductModel(

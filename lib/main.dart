@@ -14,6 +14,7 @@ import 'package:provider/provider.dart';
 import 'auth/login_page.dart';
 import 'auth/register_page.dart';
 import 'emty_page.dart';
+import 'inner_page/catagor_screen.dart';
 import 'inner_page/feed_innerpage.dart';
 import 'inner_page/on_sale_innepage.dart';
 import 'main_provider/products_provider.dart';
@@ -77,6 +78,8 @@ class _MyAppState extends State<MyApp> {
             RegisterPage.routeName:(context)=>RegisterPage(),
             LoginPage.routeName:(context)=>const LoginPage(),
             ForgetPasswordPage.routeName:(context)=>const ForgetPasswordPage(),
+            CatagoryScreen.routeName:(context)=>const      CatagoryScreen(),
+
             // EmtyPage.routeName:(context)=>EmtyPage(),
 
           },

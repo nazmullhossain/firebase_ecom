@@ -1,7 +1,10 @@
+import 'package:firecom/main_provider/products_provider.dart';
+import 'package:firecom/models/products_models.dart';
 import 'package:firecom/widgets/text_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../inner_page/catagor_screen.dart';
 import '../provider/dark_theme-provider.dart';
 
 class CatagoriesWidget extends StatelessWidget {
@@ -21,8 +24,11 @@ class CatagoriesWidget extends StatelessWidget {
     final themeState= Provider.of<DarkThemeProvider>(context);
     Color color = themeState.getDarkTheme? Colors.white: Colors.black;
     double _screenWidth=MediaQuery.of(context).size.width;
+
     return InkWell(
-      onTap: onPressed,
+      onTap: (){
+        Navigator.pushNamed(context,CatagoryScreen.routeName,arguments: cartText);
+      },
       child: Container(
         // height: _screenWidth*0.6,
         decoration: BoxDecoration(

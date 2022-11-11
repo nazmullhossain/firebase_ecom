@@ -7,6 +7,7 @@ import '../consts/slider_images.dart';
 import '../main_provider/products_provider.dart';
 import '../models/products_models.dart';
 import '../utils/utils.dart';
+import '../widgets/emty_product_widgets.dart';
 import '../widgets/feed_items_widgets.dart';
 import '../widgets/one_sale_widget.dart';
 
@@ -49,28 +50,7 @@ class OnSaleInnerPage extends StatelessWidget {
         ),
       ),
       body: allProduct.isEmpty
-          ? Center(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(18.0),
-                      child: Image.asset("images/box.png"),
-                    ),
-                    Text(
-                      "No product on sale yet!,\nStay tuned",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: color,
-                        fontSize: 40,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            )
+          ? EmtyProductWidget(text:"No product on sale yet!,\nStay tuned",)
           : GridView.count(
               // shrinkWrap: true,
               // crossAxisSpacing: 10,
