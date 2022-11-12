@@ -22,6 +22,7 @@ class FeedItemWidgets extends StatefulWidget {
 
 class _FeedItemWidgetsState extends State<FeedItemWidgets> {
   final TextEditingController _quantityTextController=TextEditingController();
+
   @override
   void initState() {
     _quantityTextController.text="1";
@@ -38,6 +39,7 @@ class _FeedItemWidgetsState extends State<FeedItemWidgets> {
   Widget build(BuildContext context) {
 final productModel=Provider.of<ProductModel>(context);
 final cartProvider=Provider.of<CartProvider>(context);
+bool?_isInCart=cartProvider.getCartItem.containsKey(productModel.id);
 
     final Utils utils = Utils(context);
     final themeState = utils.getTheme;
@@ -152,11 +154,11 @@ final cartProvider=Provider.of<CartProvider>(context);
                 ),
               ),
 
-             ElevatedButton(onPressed: (){
+             ElevatedButton(onPressed: _isInCart?null: (){
                cartProvider.addProductsToCart
                  (productId: productModel.id,
                    quantity: int.parse(_quantityTextController.text));
-             }, child: Text("Add to Cart"))
+             }, child: Text( _isInCart?"In Cart":  "Add to Cart"))
             ],
           ),
         ),

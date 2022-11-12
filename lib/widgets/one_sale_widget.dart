@@ -28,6 +28,7 @@ class _OneSaleWidgetState extends State<OneSaleWidget> {
     // final productModel=Provider.of<ProductModel>(context);
     final Color color=Utils(context).color;
     // final productModel=Provider.of<ProductModel>(context);
+    bool? _isInCart=cartProvider.getCartItem.containsKey(productModel.id);
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Material(
@@ -73,8 +74,10 @@ class _OneSaleWidgetState extends State<OneSaleWidget> {
                                       (productId: productModel.id,
                                         quantity: 1);
                                   },
-                                  child: Icon(IconlyLight.bag2,
-                                  size: 22,color: color,),
+                                  child: Icon(
+                                    _isInCart?IconlyBold.bag2:IconlyLight.bag2,
+
+                                  size: 22,color: _isInCart?Colors.green :color,),
                                 ),
                                 GestureDetector(
                                   onTap: (){},

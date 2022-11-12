@@ -9,6 +9,8 @@ class CartProvider with ChangeNotifier{
       return _cartItem;
 
   }
+
+  //add to cart this method
   void addProductsToCart({
   required String productId,
     required int quantity,

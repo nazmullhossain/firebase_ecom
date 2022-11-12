@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:provider/provider.dart';
 
+import '../main_provider/cart_provider.dart';
 import '../main_provider/products_provider.dart';
 import '../utils/utils.dart';
 
@@ -46,7 +47,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
     //findProdById method return String so your can get data this approch
     final productId=ModalRoute.of(context)!.settings.arguments as String;
 
-
+final cartProvider=Provider.of<CartProvider>(context);
 
 
     final getCurrentProduct=productProviders.findProdById(productId);
@@ -56,6 +57,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
 
 
     double totalPrice=userPrice*int.parse(_quantityTextConroller.text);
+    bool? _isInCart=cartProvider.getCartItem.containsKey(getCurrentProduct.id);
 
     return Scaffold(
 
@@ -284,12 +286,17 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                 color: Colors.red,
                                 borderRadius: BorderRadius.circular(10),
                                 child: InkWell(
-                                  onTap: (){},
+                                  onTap: _isInCart?null: (){
+                                    cartProvider.addProductsToCart(
+                                        productId: getCurrentProduct.id,
+                                        quantity: int.parse(_quantityTextConroller.text));
+                                    
+                                  },
                                   child: Padding(
                                     padding: const EdgeInsets.all(12.0),
                                     child: TextWidget(color: Colors.white,
                                         maxLines: 1, textSize: 18
-                                        , text: "Add to Cart"),
+                                        , text: _isInCart?"In Cart" :"Add to Cart"),
                                   ),
                                 )
                                 ,
