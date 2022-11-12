@@ -17,6 +17,7 @@ import 'emty_page.dart';
 import 'inner_page/catagor_screen.dart';
 import 'inner_page/feed_innerpage.dart';
 import 'inner_page/on_sale_innepage.dart';
+import 'main_provider/cart_provider.dart';
 import 'main_provider/products_provider.dart';
 
 void main() {
@@ -60,7 +61,11 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) {
           return themeChangeProvider;
         }),
-        ChangeNotifierProvider(create: (_)=>ProductProvider())
+        //product_provider
+        ChangeNotifierProvider(create: (_)=>ProductProvider()),
+
+//cart provider
+        ChangeNotifierProvider(create: (_)=>CartProvider())
       ],
       child:
           Consumer<DarkThemeProvider>(builder: (context, themeProvider, child) {

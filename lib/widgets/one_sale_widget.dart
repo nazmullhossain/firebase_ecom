@@ -1,4 +1,5 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
+import 'package:firecom/main_provider/cart_provider.dart';
 import 'package:firecom/models/products_models.dart';
 import 'package:firecom/pages/product_details_page.dart';
 import 'package:firecom/widgets/price_widget.dart';
@@ -20,6 +21,7 @@ class _OneSaleWidgetState extends State<OneSaleWidget> {
   @override
   Widget build(BuildContext context) {
     final productModel=Provider.of<ProductModel>(context);
+    final cartProvider=Provider.of<CartProvider>(context);
     final Utils utils=Utils(context);
     final themeState=utils.getTheme;
     final Size size=Utils( context).screenSize;
@@ -66,7 +68,11 @@ class _OneSaleWidgetState extends State<OneSaleWidget> {
                             Row(
                               children: [
                                 GestureDetector(
-                                  onTap: (){},
+                                  onTap: (){
+                                    cartProvider.addProductsToCart
+                                      (productId: productModel.id,
+                                        quantity: 1);
+                                  },
                                   child: Icon(IconlyLight.bag2,
                                   size: 22,color: color,),
                                 ),

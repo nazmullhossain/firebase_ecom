@@ -1,17 +1,22 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
+import 'package:firecom/main_provider/cart_provider.dart';
+import 'package:firecom/main_provider/products_provider.dart';
+import 'package:firecom/models/cart_model.dart';
+import 'package:firecom/models/products_models.dart';
 import 'package:firecom/widgets/text_widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:provider/provider.dart';
 
 import '../pages/product_details_page.dart';
 import '../service/golobal_method.dart';
 import '../utils/utils.dart';
 
 class CartWidget extends StatefulWidget {
-  const CartWidget({Key? key}) : super(key: key);
-
+  const CartWidget({Key? key,required this.q}) : super(key: key);
+final int q;
   @override
   State<CartWidget> createState() => _CartWidgetState();
 }
@@ -21,7 +26,7 @@ class _CartWidgetState extends State<CartWidget> {
   GlobalMethods golobalMethods=GlobalMethods();
   @override
   void initState() {
-    _quantityTextContorller.text = "1";
+    _quantityTextContorller.text = widget.q.toString();
     // TODO: implement initState
     super.initState();
   }
@@ -40,9 +45,23 @@ class _CartWidgetState extends State<CartWidget> {
     final themeState = utils.getTheme;
     final Color color = Utils(context).color;
     final Size size = Utils(context).screenSize;
+    final productProvider=Provider.of<ProductProvider>(context);
+    final cartModel=Provider.of<CartModel>(context);
+final cartProvider=Provider.of<CartProvider>(context);
+
+    final getCurrentProduct=productProvider.findProdById(cartModel.productId);
+    double userPrice=getCurrentProduct.isOneSale?
+    getCurrentProduct.salePrice:
+    getCurrentProduct.price;
+
     return GestureDetector(
       onTap: () {
-        golobalMethods.navigateTo(context: context,routeName: ProductDetailsPage.routeName);
+        Navigator.pushNamed(context, ProductDetailsPage.routeName,
+        arguments: cartModel.productId);
+
+
+
+        // this code null error show  golobalMethods.navigateTo(context: context,routeName: ProductDetailsPage.routeName);
       },
       child: Row(
         children: [
@@ -61,7 +80,7 @@ class _CartWidgetState extends State<CartWidget> {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12)),
                       child: FancyShimmerImage(
-                        imageUrl: "https://i.ibb.co/F0s3FHQ/Apricots.png",
+                        imageUrl: getCurrentProduct.imageUrl,
                         boxFit: BoxFit.fill,
                       ),
                     ),
@@ -72,7 +91,7 @@ class _CartWidgetState extends State<CartWidget> {
                           color: color,
                           maxLines: 10,
                           textSize: 20,
-                          text: "Title",
+                          text: getCurrentProduct.title,
                           isTitle: true,
                         ),
                         SizedBox(
@@ -91,6 +110,7 @@ class _CartWidgetState extends State<CartWidget> {
                                       }
                                       else{
                                         setState(() {
+                                          cartProvider.reducedQuantityByOne(cartModel.productId);
                                         _quantityTextContorller.text=(int.parse(_quantityTextContorller.text)-1).toString();
                                         });
                                       }
@@ -126,7 +146,9 @@ class _CartWidgetState extends State<CartWidget> {
 
                               _quantityController(
                                   fact: () {
+                                    cartProvider.increaseQuantityByOne(cartModel.productId);
                                     setState(() {
+
                                       _quantityTextContorller.text=(int.parse(_quantityTextContorller.text)+1).toString();
                                     });
                                   },
@@ -159,7 +181,9 @@ class _CartWidgetState extends State<CartWidget> {
                       child: Column(
                         children: [
                           InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              cartProvider.removeOneItem(cartModel.productId);
+                            },
                             child: Icon(
                               CupertinoIcons.cart_badge_minus,
                               color: Colors.red,
@@ -180,7 +204,7 @@ class _CartWidgetState extends State<CartWidget> {
                               color: color,
                               maxLines: 1,
                               textSize: 18,
-                              text: "\$0.29")
+                              text: "\$${userPrice.toStringAsFixed(2)}")
                         ],
                       ),
                     ),

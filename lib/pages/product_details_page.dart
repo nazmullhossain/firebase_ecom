@@ -45,10 +45,16 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
     final productProviders=Provider.of<ProductProvider>(context);
     //findProdById method return String so your can get data this approch
     final productId=ModalRoute.of(context)!.settings.arguments as String;
+
+
+
+
     final getCurrentProduct=productProviders.findProdById(productId);
     double userPrice=getCurrentProduct.isOneSale?
     getCurrentProduct.salePrice:
     getCurrentProduct.price;
+
+
     double totalPrice=userPrice*int.parse(_quantityTextConroller.text);
 
     return Scaffold(

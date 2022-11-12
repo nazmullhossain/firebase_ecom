@@ -1,4 +1,5 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
+import 'package:firecom/models/cart_model.dart';
 import 'package:firecom/models/products_models.dart';
 import 'package:firecom/pages/product_details_page.dart';
 import 'package:firecom/widgets/price_widget.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:provider/provider.dart';
 
+import '../main_provider/cart_provider.dart';
 import '../utils/utils.dart';
 
 class FeedItemWidgets extends StatefulWidget {
@@ -35,6 +37,8 @@ class _FeedItemWidgetsState extends State<FeedItemWidgets> {
   @override
   Widget build(BuildContext context) {
 final productModel=Provider.of<ProductModel>(context);
+final cartProvider=Provider.of<CartProvider>(context);
+
     final Utils utils = Utils(context);
     final themeState = utils.getTheme;
     final Color color = Utils(context).color;
@@ -148,7 +152,11 @@ final productModel=Provider.of<ProductModel>(context);
                 ),
               ),
 
-             ElevatedButton(onPressed: (){}, child: Text("Add to Cart"))
+             ElevatedButton(onPressed: (){
+               cartProvider.addProductsToCart
+                 (productId: productModel.id,
+                   quantity: int.parse(_quantityTextController.text));
+             }, child: Text("Add to Cart"))
             ],
           ),
         ),
