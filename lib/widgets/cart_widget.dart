@@ -10,20 +10,22 @@ import 'package:flutter/services.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:provider/provider.dart';
 
+import '../main_provider/wishList_provider.dart';
 import '../pages/product_details_page.dart';
 import '../service/golobal_method.dart';
 import '../utils/utils.dart';
+import 'heart_button_widget.dart';
 
 class CartWidget extends StatefulWidget {
-  const CartWidget({Key? key,required this.q}) : super(key: key);
-final int q;
+  const CartWidget({Key? key, required this.q}) : super(key: key);
+  final int q;
   @override
   State<CartWidget> createState() => _CartWidgetState();
 }
 
 class _CartWidgetState extends State<CartWidget> {
   final TextEditingController _quantityTextContorller = TextEditingController();
-  GlobalMethods golobalMethods=GlobalMethods();
+  GlobalMethods golobalMethods = GlobalMethods();
   @override
   void initState() {
     _quantityTextContorller.text = widget.q.toString();
@@ -45,21 +47,24 @@ class _CartWidgetState extends State<CartWidget> {
     final themeState = utils.getTheme;
     final Color color = Utils(context).color;
     final Size size = Utils(context).screenSize;
-    final productProvider=Provider.of<ProductProvider>(context);
-    final cartModel=Provider.of<CartModel>(context);
-final cartProvider=Provider.of<CartProvider>(context);
+    final productProvider = Provider.of<ProductProvider>(context);
+    final cartModel = Provider.of<CartModel>(context);
+    final cartProvider = Provider.of<CartProvider>(context);
 
-    final getCurrentProduct=productProvider.findProdById(cartModel.productId);
-    double userPrice=getCurrentProduct.isOneSale?
-    getCurrentProduct.salePrice:
-    getCurrentProduct.price;
+    final getCurrentProduct = productProvider.findProdById(cartModel.productId);
+    double userPrice = getCurrentProduct.isOneSale
+        ? getCurrentProduct.salePrice
+        : getCurrentProduct.price;
+
+
+    final wishListProvider=Provider.of<WishListProvider>(context);
+    bool?_isInWishList=wishListProvider.getWishListItem.containsKey(getCurrentProduct.id);
+
 
     return GestureDetector(
       onTap: () {
         Navigator.pushNamed(context, ProductDetailsPage.routeName,
-        arguments: cartModel.productId);
-
-
+            arguments: cartModel.productId);
 
         // this code null error show  golobalMethods.navigateTo(context: context,routeName: ProductDetailsPage.routeName);
       },
@@ -103,18 +108,19 @@ final cartProvider=Provider.of<CartProvider>(context);
                             children: [
                               _quantityController(
                                   fact: () {
-
-
-                                      if(_quantityTextContorller.text=="1"){
-                                        return;
-                                      }
-                                      else{
-                                        setState(() {
-                                          cartProvider.reducedQuantityByOne(cartModel.productId);
-                                        _quantityTextContorller.text=(int.parse(_quantityTextContorller.text)-1).toString();
-                                        });
-                                      }
-
+                                    if (_quantityTextContorller.text == "1") {
+                                      return;
+                                    } else {
+                                      setState(() {
+                                        cartProvider.reducedQuantityByOne(
+                                            cartModel.productId);
+                                        _quantityTextContorller.text =
+                                            (int.parse(_quantityTextContorller
+                                                        .text) -
+                                                    1)
+                                                .toString();
+                                      });
+                                    }
                                   },
                                   icon: CupertinoIcons.minus,
                                   color: Colors.red),
@@ -146,10 +152,14 @@ final cartProvider=Provider.of<CartProvider>(context);
 
                               _quantityController(
                                   fact: () {
-                                    cartProvider.increaseQuantityByOne(cartModel.productId);
+                                    cartProvider.increaseQuantityByOne(
+                                        cartModel.productId);
                                     setState(() {
-
-                                      _quantityTextContorller.text=(int.parse(_quantityTextContorller.text)+1).toString();
+                                      _quantityTextContorller.text = (int.parse(
+                                                  _quantityTextContorller
+                                                      .text) +
+                                              1)
+                                          .toString();
                                     });
                                   },
                                   icon: CupertinoIcons.plus,
@@ -192,13 +202,9 @@ final cartProvider=Provider.of<CartProvider>(context);
                           SizedBox(
                             height: 5,
                           ),
-                          GestureDetector(
-                            onTap: () {},
-                            child: Icon(
-                              IconlyLight.heart,
-                              size: 22,
-                              color: color,
-                            ),
+                          HeartButtonWidget(
+                            productId: getCurrentProduct.id,
+                            isInWishList: _isInWishList,
                           ),
                           TextWidget(
                               color: color,
@@ -208,7 +214,9 @@ final cartProvider=Provider.of<CartProvider>(context);
                         ],
                       ),
                     ),
-                    SizedBox(width: 5,)
+                    SizedBox(
+                      width: 5,
+                    )
                   ],
                 ),
               ),
@@ -237,7 +245,8 @@ final cartProvider=Provider.of<CartProvider>(context);
             child: Padding(
               padding: const EdgeInsets.all(7.0),
               child: Icon(
-                icon,size: 20,
+                icon,
+                size: 20,
                 color: Colors.white,
               ),
             ),

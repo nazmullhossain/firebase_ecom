@@ -8,7 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:provider/provider.dart';
 
+import '../main_provider/wishList_provider.dart';
 import '../utils/utils.dart';
+import 'heart_button_widget.dart';
 
 class OneSaleWidget extends StatefulWidget {
   const OneSaleWidget({Key? key}) : super(key: key);
@@ -29,6 +31,8 @@ class _OneSaleWidgetState extends State<OneSaleWidget> {
     final Color color=Utils(context).color;
     // final productModel=Provider.of<ProductModel>(context);
     bool? _isInCart=cartProvider.getCartItem.containsKey(productModel.id);
+    final wishListProvider=Provider.of<WishListProvider>(context);
+    bool?_isInWishList=wishListProvider.getWishListItem.containsKey(productModel.id);
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Material(
@@ -79,11 +83,10 @@ class _OneSaleWidgetState extends State<OneSaleWidget> {
 
                                   size: 22,color: _isInCart?Colors.green :color,),
                                 ),
-                                GestureDetector(
-                                  onTap: (){},
-                                  child: Icon(IconlyLight.heart,
-                                  size: 22,color: color,),
-                                ),
+                                HeartButtonWidget(
+                                  productId: productModel.id,
+                                  isInWishList: _isInWishList,
+                                )
                               ],
                             ),
 

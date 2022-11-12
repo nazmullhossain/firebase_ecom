@@ -8,7 +8,9 @@ import 'package:provider/provider.dart';
 
 import '../main_provider/cart_provider.dart';
 import '../main_provider/products_provider.dart';
+import '../main_provider/wishList_provider.dart';
 import '../utils/utils.dart';
+import '../widgets/heart_button_widget.dart';
 
 class ProductDetailsPage extends StatefulWidget {
   const ProductDetailsPage({
@@ -58,6 +60,8 @@ final cartProvider=Provider.of<CartProvider>(context);
 
     double totalPrice=userPrice*int.parse(_quantityTextConroller.text);
     bool? _isInCart=cartProvider.getCartItem.containsKey(getCurrentProduct.id);
+    final wishListProvider=Provider.of<WishListProvider>(context);
+    bool?_isInWishList=wishListProvider.getWishListItem.containsKey(getCurrentProduct.id);
 
     return Scaffold(
 
@@ -108,13 +112,9 @@ final cartProvider=Provider.of<CartProvider>(context);
                                   maxLines: 1,
                                   textSize: 18,
                                   text: getCurrentProduct.title)),
-                          GestureDetector(
-                            onTap: () {},
-                            child: Icon(
-                              IconlyLight.heart,
-                              size: 22,
-                              color: color,
-                            ),
+                          HeartButtonWidget(
+                            productId: getCurrentProduct.id,
+                            isInWishList: _isInWishList,
                           ),
                         ],
                       ),

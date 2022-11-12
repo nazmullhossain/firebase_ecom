@@ -1,4 +1,5 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
+import 'package:firecom/main_provider/wishList_provider.dart';
 import 'package:firecom/models/cart_model.dart';
 import 'package:firecom/models/products_models.dart';
 import 'package:firecom/pages/product_details_page.dart';
@@ -11,6 +12,7 @@ import 'package:provider/provider.dart';
 
 import '../main_provider/cart_provider.dart';
 import '../utils/utils.dart';
+import 'heart_button_widget.dart';
 
 class FeedItemWidgets extends StatefulWidget {
   const FeedItemWidgets({Key? key,}) : super(key: key);
@@ -40,6 +42,8 @@ class _FeedItemWidgetsState extends State<FeedItemWidgets> {
 final productModel=Provider.of<ProductModel>(context);
 final cartProvider=Provider.of<CartProvider>(context);
 bool?_isInCart=cartProvider.getCartItem.containsKey(productModel.id);
+final wishListProvider=Provider.of<WishListProvider>(context);
+bool?_isInWishList=wishListProvider.getWishListItem.containsKey(productModel.id);
 
     final Utils utils = Utils(context);
     final themeState = utils.getTheme;
@@ -81,14 +85,10 @@ bool?_isInCart=cartProvider.getCartItem.containsKey(productModel.id);
                     ),
                     Flexible(
                       flex: 1,
-                      child: GestureDetector(
-                        onTap: () {},
-                        child: Icon(
-                          IconlyLight.heart,
-                          size: 22,
-                          color: color,
-                        ),
-                      ),
+                      child:HeartButtonWidget(
+                        productId: productModel.id,
+                      isInWishList: _isInWishList,
+                      )
                     ),
                   ],
                 ),
