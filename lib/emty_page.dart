@@ -23,6 +23,7 @@ class EmtyPage extends StatelessWidget {
     final Color color = Utils(context).color;
     final Size size = Utils(context).screenSize;
     return Scaffold(
+
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(

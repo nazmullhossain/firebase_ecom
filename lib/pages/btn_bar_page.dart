@@ -1,4 +1,5 @@
 import 'package:badges/badges.dart';
+import 'package:firecom/main_provider/cart_provider.dart';
 import 'package:firecom/pages/home_page.dart';
 import 'package:firecom/pages/user_page.dart';
 import 'package:flutter/material.dart';
@@ -35,6 +36,7 @@ final  List <Map<String,dynamic>>_page =[
   @override
   Widget build(BuildContext context) {
     final themeState = Provider.of<DarkThemeProvider>(context);
+    // final cartProvider=Provider.of<CartProvider>(context);
     bool _dark=themeState.getDarkTheme;
     return Scaffold(
       appBar: AppBar(
@@ -66,13 +68,17 @@ final  List <Map<String,dynamic>>_page =[
               label: "Categories"),
           BottomNavigationBarItem(
               icon:
-              Badge(
-                  toAnimate: true,
-                  shape: BadgeShape.circle,
-                  badgeColor: Colors.blue,
-                  borderRadius: BorderRadius.circular(8),
-                  badgeContent: Text('1', style: TextStyle(color: Colors.white)),
-                      child: Icon(_selectedIndex == 2 ? IconlyBold.bag : IconlyLight.buy)),
+              Consumer<CartProvider>(
+                builder: (context,myCart,ch) {
+                  return Badge(
+                      toAnimate: true,
+                      shape: BadgeShape.circle,
+                      badgeColor: Colors.blue,
+                      borderRadius: BorderRadius.circular(8),
+                      badgeContent: Text(myCart.getCartItem.length.toString(), style: TextStyle(color: Colors.white)),
+                          child: Icon(_selectedIndex == 2 ? IconlyBold.bag : IconlyLight.buy));
+                }
+              ),
               label: "Cart"),
           BottomNavigationBarItem(
               icon: Icon(

@@ -19,6 +19,7 @@ import 'inner_page/feed_innerpage.dart';
 import 'inner_page/on_sale_innepage.dart';
 import 'main_provider/cart_provider.dart';
 import 'main_provider/products_provider.dart';
+import 'main_provider/viewedProvider.dart';
 import 'main_provider/wishList_provider.dart';
 
 void main() {
@@ -69,6 +70,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_)=>CartProvider()),
         //wishlist provider
         ChangeNotifierProvider(create: (_)=>WishListProvider()),
+        ChangeNotifierProvider(create: (_)=>ViewedProvider()),
       ],
       child:
           Consumer<DarkThemeProvider>(builder: (context, themeProvider, child) {
@@ -87,6 +89,7 @@ class _MyAppState extends State<MyApp> {
             LoginPage.routeName:(context)=>const LoginPage(),
             ForgetPasswordPage.routeName:(context)=>const ForgetPasswordPage(),
             CatagoryScreen.routeName:(context)=>const      CatagoryScreen(),
+            // CatagoryScreen.routeName:(context)=>const      CatagoryScreen(),
 
 
             // EmtyPage.routeName:(context)=>EmtyPage(),

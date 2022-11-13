@@ -193,6 +193,7 @@ class _CartWidgetState extends State<CartWidget> {
                           InkWell(
                             onTap: () {
                               cartProvider.removeOneItem(cartModel.productId);
+
                             },
                             child: Icon(
                               CupertinoIcons.cart_badge_minus,
