@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:fluttertoast/fluttertoast.dart';
 class TextWidget extends StatelessWidget {
    TextWidget({Key? key,
   required this.color,

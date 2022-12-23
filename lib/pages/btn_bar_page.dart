@@ -29,8 +29,8 @@ class _BottomBarPageState extends State<BottomBarPage> {
 final  List <Map<String,dynamic>>_page =[
   {"page": HomePage(),"title": "Home"},
   {"page": CategoriesPage(),"title": "Categories"},
-  {"page": CartPage(),"title": "Cart"},
-  {"page": UserPage(),"title": "User"},
+  {"page": const CartPage(),"title": "Cart"},
+  {"page": const UserPage(),"title": "User"},
 ];
 
   @override
@@ -75,7 +75,7 @@ final  List <Map<String,dynamic>>_page =[
                       shape: BadgeShape.circle,
                       badgeColor: Colors.blue,
                       borderRadius: BorderRadius.circular(8),
-                      badgeContent: Text(myCart.getCartItem.length.toString(), style: TextStyle(color: Colors.white)),
+                      badgeContent: Text(myCart.getCartItem.length.toString(), style: const TextStyle(color: Colors.white)),
                           child: Icon(_selectedIndex == 2 ? IconlyBold.bag : IconlyLight.buy));
                 }
               ),

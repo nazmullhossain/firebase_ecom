@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firecom/consts/theme_data.dart';
 import 'package:firecom/pages/btn_bar_page.dart';
 import 'package:firecom/pages/forget_password.dart';
@@ -39,9 +40,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
-
-
   DarkThemeProvider themeChangeProvider = DarkThemeProvider();
 
   void getCurrentAppTheme() async {
@@ -56,47 +54,70 @@ class _MyAppState extends State<MyApp> {
     super.initState();
   }
 
+  final Future<FirebaseApp>  _firebaseInitialization = Firebase.initializeApp();
+
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) {
-          return themeChangeProvider;
-        }),
-        //product_provider
-        ChangeNotifierProvider(create: (_)=>ProductProvider()),
+    return FutureBuilder(
+        future: _firebaseInitialization,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const MaterialApp(
+              home: Scaffold(
+                body: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              ),
+            );
+          } else if (snapshot.hasError) {
+            return const MaterialApp(
+              home: Scaffold(
+                body: Center(
+                  child: Text("An error occured"),
+                ),
+              ),
+            );
+          }
+          return MultiProvider(
+            providers: [
+              ChangeNotifierProvider(create: (_) {
+                return themeChangeProvider;
+              }),
+              //product_provider
+              ChangeNotifierProvider(create: (_) => ProductProvider()),
 
 //cart provider
-        ChangeNotifierProvider(create: (_)=>CartProvider()),
-        //wishlist provider
-        ChangeNotifierProvider(create: (_)=>WishListProvider()),
-        ChangeNotifierProvider(create: (_)=>ViewedProvider()),
-      ],
-      child:
-          Consumer<DarkThemeProvider>(builder: (context, themeProvider, child) {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          theme: Styles.themeData(themeProvider.getDarkTheme, context),
-          home: BottomBarPage(),
-          routes: {
-            OnSaleInnerPage.routeName:(context)=>OnSaleInnerPage(),
-            FeedInnerPage.routeName:(context)=>FeedInnerPage(),
-            ProductDetailsPage.routeName:(context)=>ProductDetailsPage(),
-            WishListPage.routeName:(context)=>WishListPage(),
-            OrderPage.routeName:(context)=>OrderPage(),
-            ViewedPage.routeName:(context)=>ViewedPage(),
-            RegisterPage.routeName:(context)=>RegisterPage(),
-            LoginPage.routeName:(context)=>const LoginPage(),
-            ForgetPasswordPage.routeName:(context)=>const ForgetPasswordPage(),
-            CatagoryScreen.routeName:(context)=>const      CatagoryScreen(),
-            // CatagoryScreen.routeName:(context)=>const      CatagoryScreen(),
+              ChangeNotifierProvider(create: (_) => CartProvider()),
+              //wishlist provider
+              ChangeNotifierProvider(create: (_) => WishListProvider()),
+              ChangeNotifierProvider(create: (_) => ViewedProvider()),
+            ],
+            child: Consumer<DarkThemeProvider>(
+                builder: (context, themeProvider, child) {
+              return MaterialApp(
+                debugShowCheckedModeBanner: false,
+                theme: Styles.themeData(themeProvider.getDarkTheme, context),
+                home: const BottomBarPage(),
+                routes: {
+                  OnSaleInnerPage.routeName: (context) => OnSaleInnerPage(),
+                  FeedInnerPage.routeName: (context) => FeedInnerPage(),
+                  ProductDetailsPage.routeName: (context) =>
+                      ProductDetailsPage(),
+                  WishListPage.routeName: (context) => WishListPage(),
+                  OrderPage.routeName: (context) => OrderPage(),
+                  ViewedPage.routeName: (context) => ViewedPage(),
+                  RegisterPage.routeName: (context) => RegisterPage(),
+                  LoginPage.routeName: (context) => const LoginPage(),
+                  ForgetPasswordPage.routeName: (context) =>
+                      const ForgetPasswordPage(),
+                  CatagoryScreen.routeName: (context) => const CatagoryScreen(),
+                  // CatagoryScreen.routeName:(context)=>const      CatagoryScreen(),
 
-
-            // EmtyPage.routeName:(context)=>EmtyPage(),
-
-          },
-        );
-      }),
-    );
+                  // EmtyPage.routeName:(context)=>EmtyPage(),
+                },
+              );
+            }),
+          );
+        });
   }
 }

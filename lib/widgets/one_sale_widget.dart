@@ -1,4 +1,5 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firecom/main_provider/cart_provider.dart';
 import 'package:firecom/models/products_models.dart';
 import 'package:firecom/pages/product_details_page.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:provider/provider.dart';
 
+import '../consts/firebase_const.dart';
 import '../main_provider/wishList_provider.dart';
 import '../utils/utils.dart';
 import 'heart_button_widget.dart';
@@ -73,7 +75,34 @@ class _OneSaleWidgetState extends State<OneSaleWidget> {
                             Row(
                               children: [
                                 GestureDetector(
-                                  onTap: _isInCart?null: (){
+                                  onTap: _isInCart? null: (){
+
+                                    final User? user=authInstance.currentUser;
+                                    print("User id is ${user!.uid}");
+                                    if(user==null){
+                                      showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return AlertDialog(
+                                              title: Text("Not user found. Please login first"),
+                                              actions: <Widget>[
+                                                TextButton(
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  child: Container(
+                                                    color: Colors.green,
+                                                    padding: const EdgeInsets.all(14),
+                                                    child: const Text("okay"),
+                                                  ),
+                                                ),
+                                              ],
+                                            );
+                                          });
+                                      return;
+                                    }
+
+
                                     cartProvider.addProductsToCart
                                       (productId: productModel.id,
                                         quantity: 1);

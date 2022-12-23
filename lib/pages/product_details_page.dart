@@ -1,4 +1,5 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firecom/main_provider/viewedProvider.dart';
 import 'package:firecom/pages/home_page.dart';
 import 'package:firecom/widgets/text_widgets.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:provider/provider.dart';
 
+import '../consts/firebase_const.dart';
 import '../main_provider/cart_provider.dart';
 import '../main_provider/products_provider.dart';
 import '../main_provider/wishList_provider.dart';
@@ -295,6 +297,34 @@ final viewedProvider=Provider.of<ViewedProvider>(context);
                                   borderRadius: BorderRadius.circular(10),
                                   child: InkWell(
                                     onTap: _isInCart?null: (){
+
+                                      final User? user=authInstance.currentUser;
+                                      // print("User id is ${user!.uid}");
+                                      if(user==null){
+                                        showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              return AlertDialog(
+                                                title: Text("Not user found. Please login first"),
+                                                actions: <Widget>[
+                                                  TextButton(
+                                                    onPressed: () {
+                                                      Navigator.of(context).pop();
+                                                    },
+                                                    child: Container(
+                                                      color: Colors.green,
+                                                      padding: const EdgeInsets.all(14),
+                                                      child: const Text("okay"),
+                                                    ),
+                                                  ),
+                                                ],
+                                              );
+                                            });
+                                        return;
+                                      }
+
+
+
                                       cartProvider.addProductsToCart(
                                           productId: getCurrentProduct.id,
                                           quantity: int.parse(_quantityTextConroller.text));
