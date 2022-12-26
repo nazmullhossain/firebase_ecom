@@ -22,6 +22,7 @@ class CatagoryScreen extends StatefulWidget {
 class _CatagoryScreenState extends State<CatagoryScreen> {
   TextEditingController _serchTextController = TextEditingController();
   final FocusNode _searchTextFocusNode = FocusNode();
+  List<ProductModel> listProductSearch=[];
   @override
   void dispose() {
     // TODO: implement dispose
@@ -75,7 +76,9 @@ class _CatagoryScreenState extends State<CatagoryScreen> {
                   focusNode: _searchTextFocusNode,
                   controller: _serchTextController,
                   onChanged: (value) {
-                    setState(() {});
+                    setState(() {
+                      listProductSearch=productProvider.searchQuery(value);
+                    });
                   },
                   decoration: InputDecoration(
                       focusedBorder: OutlineInputBorder(
@@ -99,16 +102,20 @@ class _CatagoryScreenState extends State<CatagoryScreen> {
                 ),
               ),
             ),
-            GridView.count(
+        _serchTextController.text.isNotEmpty&&  listProductSearch.isEmpty?EmtyProductWidget(text: "No product found") : GridView.count(
               shrinkWrap: true,
               // crossAxisSpacing: 10,
 
               physics: const NeverScrollableScrollPhysics(),
               crossAxisCount: 2,
               childAspectRatio: size.width / (size.height * 0.70),
-              children: List.generate(productByCatagory.length, (index) {
+              children: List.generate(
+                  _serchTextController.text.isNotEmpty?
+                      listProductSearch.length:
+                  productByCatagory.length, (index) {
                 return ChangeNotifierProvider.value(
-                  value: productByCatagory[index],
+                  value:_serchTextController.text.isNotEmpty?
+                  listProductSearch[index]: productByCatagory[index],
                   child: const FeedItemWidgets(),
                 );
               }),

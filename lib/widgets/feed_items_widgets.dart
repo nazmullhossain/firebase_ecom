@@ -187,7 +187,7 @@ bool?_isInWishList=wishListProvider.getWishListItem.containsKey(productModel.id)
                cartProvider.addProductsToCart
                  (productId: productModel.id,
                    quantity: int.parse(_quantityTextController.text));
-             }, child: Text( _isInCart?"In Cart":  "Add to Cart"))
+             }, child: Text( _isInCart?"প্রডাক্ট যোগ হয়েছে":  "Add to Cart"))
             ],
           ),
         ),

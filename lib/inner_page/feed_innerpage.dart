@@ -7,6 +7,7 @@ import '../main_provider/products_provider.dart';
 import '../models/products_models.dart';
 import '../service/golobal_method.dart';
 import '../utils/utils.dart';
+import '../widgets/emty_product_widgets.dart';
 import '../widgets/feed_items_widgets.dart';
 import '../widgets/text_widgets.dart';
 
@@ -27,6 +28,7 @@ class _FeedInnerPageState extends State<FeedInnerPage> {
 
   TextEditingController _serchTextController=TextEditingController();
   final FocusNode _searchTextFocusNode=FocusNode();
+  List<ProductModel>productSearch=[];
   @override
   void dispose() {
     // TODO: implement dispose
@@ -34,6 +36,7 @@ class _FeedInnerPageState extends State<FeedInnerPage> {
     _searchTextFocusNode.dispose();
     super.dispose();
   }
+
   GlobalMethods globalMethods=GlobalMethods();
   @override
   Widget build(BuildContext context) {
@@ -44,7 +47,7 @@ class _FeedInnerPageState extends State<FeedInnerPage> {
     List<ProductModel>allProduct=productProviders.getProducts;
    // another way get data from provider
     // final productModel=Provider.of<ProductModel>(context);
-
+    final productProvider=Provider.of<ProductProvider>(context);
     final Utils utils=Utils(context);
     final themeState=utils.getTheme;
     final Color color=Utils(context).color;
@@ -83,7 +86,7 @@ class _FeedInnerPageState extends State<FeedInnerPage> {
                   controller: _serchTextController,
                   onChanged: (value){
                     setState(() {
-
+                      productSearch=productProvider.searchQuery(value);
                     });
                   },
                   decoration: InputDecoration(
@@ -113,16 +116,18 @@ class _FeedInnerPageState extends State<FeedInnerPage> {
                 ),
               ),
             ),
-            GridView.count(
+            _serchTextController.text.isNotEmpty&&  productSearch.isEmpty?EmtyProductWidget(text: "No product found") :   GridView.count(
               shrinkWrap: true,
               // crossAxisSpacing: 10,
 
               physics: NeverScrollableScrollPhysics(),
               crossAxisCount: 2,
               childAspectRatio: size.width/(size.height*0.70),
-              children: List.generate(allProduct.length, (index) {
+              children: List.generate(
+                _serchTextController.text.isNotEmpty?productSearch.length:
+                  allProduct.length, (index) {
                 return ChangeNotifierProvider.value(
-                  value: allProduct[index],
+                  value: _serchTextController.text.isNotEmpty?productSearch[index]: allProduct[index],
                   child: FeedItemWidgets(
 
                   ),

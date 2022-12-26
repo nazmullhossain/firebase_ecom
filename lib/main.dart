@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firecom/consts/theme_data.dart';
 import 'package:firecom/pages/btn_bar_page.dart';
+import 'package:firecom/pages/fetch_page.dart';
 import 'package:firecom/pages/forget_password.dart';
 import 'package:firecom/pages/home_page.dart';
 import 'package:firecom/pages/order/order_page.dart';
@@ -63,6 +64,7 @@ class _MyAppState extends State<MyApp> {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const MaterialApp(
+              debugShowCheckedModeBanner: false,
               home: Scaffold(
                 body: Center(
                   child: CircularProgressIndicator(),
@@ -71,6 +73,7 @@ class _MyAppState extends State<MyApp> {
             );
           } else if (snapshot.hasError) {
             return const MaterialApp(
+              debugShowCheckedModeBanner: false,
               home: Scaffold(
                 body: Center(
                   child: Text("An error occured"),
@@ -97,7 +100,7 @@ class _MyAppState extends State<MyApp> {
               return MaterialApp(
                 debugShowCheckedModeBanner: false,
                 theme: Styles.themeData(themeProvider.getDarkTheme, context),
-                home: const BottomBarPage(),
+                home: const FetchPage(),
                 routes: {
                   OnSaleInnerPage.routeName: (context) => OnSaleInnerPage(),
                   FeedInnerPage.routeName: (context) => FeedInnerPage(),

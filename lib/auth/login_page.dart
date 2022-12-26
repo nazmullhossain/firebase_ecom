@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 
 import '../consts/firebase_const.dart';
 import '../consts/slider_images.dart';
+import '../pages/fetch_page.dart';
 import '../pages/forget_password.dart';
 import '../widgets/auth_button.dart';
 import '../widgets/google_button_widgets.dart';
@@ -54,7 +55,7 @@ bool _isLoading=false;
             email: _emailController.text.toLowerCase().trim(),
             password: _passwordController.text.trim());
         Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => BottomBarPage()));
+            MaterialPageRoute(builder: (context) => FetchPage()));
         print("successfully");
       } on FirebaseException catch (error) {
         showDialog(
