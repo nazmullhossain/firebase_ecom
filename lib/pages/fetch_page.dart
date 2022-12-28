@@ -1,3 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firecom/consts/firebase_const.dart';
+import 'package:firecom/main_provider/cart_provider.dart';
+import 'package:firecom/main_provider/wishList_provider.dart';
 import 'package:firecom/pages/btn_bar_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -21,7 +25,20 @@ class _FetchPageState extends State<FetchPage> {
     // TODO: implement initState
  Future.delayed(Duration(milliseconds: 5),()async{
    final productProvider=Provider.of<ProductProvider>(context,listen: false);
-  await productProvider.fetchProduct();
+   final cartProvider=Provider.of<CartProvider>(context,listen: false);
+   final wishListProvider=Provider.of<WishListProvider>(context,listen: false);
+   final User?user=authInstance.currentUser;
+   if(user==null){
+     await productProvider.fetchProduct();
+     cartProvider.clearLocalCart();
+     wishListProvider.clearLocalWishlist();
+   }
+   else{
+     await productProvider.fetchProduct();
+     await cartProvider.fetchCart();
+     await wishListProvider.fetchWishlist();
+   }
+
   Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>BottomBarPage()));
  });
     super.initState();

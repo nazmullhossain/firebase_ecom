@@ -67,8 +67,9 @@ class WishListPage extends StatelessWidget {
                                     },
                                     child: Text("cancel")),
                                 TextButton(
-                                    onPressed: () {
-                                      wishListProvider.clearWishList();
+                                    onPressed: () async{
+                                    await  wishListProvider.clearOnlineWishlist();
+                                      wishListProvider.clearLocalWishlist();
                                       if(Navigator.canPop(context)){
                                         Navigator.pop(context);
                                       }

@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:provider/provider.dart';
 
+import '../main_provider/products_provider.dart';
+import '../service/golobal_method.dart';
 import '../utils/utils.dart';
 
 class HeartButtonWidget extends StatelessWidget {
@@ -13,6 +15,8 @@ final String productId;
 final bool? isInWishList;
   @override
   Widget build(BuildContext context) {
+    final productProvider = Provider.of<ProductProvider>(context);
+    final getCurrProduct = productProvider.findProdById(productId);
     final Utils utils = Utils(context);
 
     final Color color = Utils(context).color;
@@ -20,32 +24,35 @@ final bool? isInWishList;
     final wishListProvider=Provider.of<WishListProvider>(context);
     // final bool?isInWishlist;
     return GestureDetector(
-      onTap: () {
-        final User? user=authInstance.currentUser;
-        // print("User id is ${user!.uid}");
-        if(user==null){
-          showDialog(
-              context: context,
-              builder: (context) {
-                return AlertDialog(
-                  title: Text("Not user found. Please login first"),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: Container(
-                        color: Colors.green,
-                        padding: const EdgeInsets.all(14),
-                        child: const Text("okay"),
-                      ),
-                    ),
-                  ],
-                );
-              });
-          return;
+      onTap: () async{
+
+        try {
+          final User? user = authInstance.currentUser;
+
+          if (user == null) {
+            GlobalMethods.errorDialog(
+                subtitle: 'No user found, Please login first',
+                context: context);
+            return;
+          }
+          if (isInWishList == false && isInWishList != null) {
+            await GlobalMethods.addToWishList(
+                productId: productId, context: context);
+          } else {
+     await   wishListProvider.removeOneItem(
+    wishlistId: wishListProvider.getWishListItem[getCurrProduct.id]!.id,
+    productId: productId);
+          }
+          await wishListProvider.fetchWishlist();
+
+        } catch (error) {
+          GlobalMethods.errorDialog(subtitle: '$error', context: context);
+        } finally {
+
         }
-        wishListProvider.addRemoveProductToWishList(productId: productId);
+
+
+
       },
       child: Icon(isInWishList != null &&isInWishList==true ?IconlyBold.heart:
         IconlyLight.heart,

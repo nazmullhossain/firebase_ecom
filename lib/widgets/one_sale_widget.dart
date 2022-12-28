@@ -11,6 +11,7 @@ import 'package:provider/provider.dart';
 
 import '../consts/firebase_const.dart';
 import '../main_provider/wishList_provider.dart';
+import '../service/golobal_method.dart';
 import '../utils/utils.dart';
 import 'heart_button_widget.dart';
 
@@ -75,7 +76,7 @@ class _OneSaleWidgetState extends State<OneSaleWidget> {
                             Row(
                               children: [
                                 GestureDetector(
-                                  onTap: _isInCart? null: (){
+                                  onTap: _isInCart? null: () async{
 
                                     final User? user=authInstance.currentUser;
                                     print("User id is ${user!.uid}");
@@ -102,10 +103,11 @@ class _OneSaleWidgetState extends State<OneSaleWidget> {
                                       return;
                                     }
 
-
-                                    cartProvider.addProductsToCart
-                                      (productId: productModel.id,
-                                        quantity: 1);
+                                 await   GlobalMethods.addToCart(productId: productModel.id, quantity: 1, context: context);
+                                    // cartProvider.addProductsToCart
+                                    //   (productId: productModel.id,
+                                    //     quantity: 1);
+                                 await   cartProvider.fetchCart();
                                   },
                                   child: Icon(
                                     _isInCart?IconlyBold.bag2:IconlyLight.bag2,

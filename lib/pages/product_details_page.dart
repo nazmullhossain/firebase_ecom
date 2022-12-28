@@ -13,6 +13,7 @@ import '../consts/firebase_const.dart';
 import '../main_provider/cart_provider.dart';
 import '../main_provider/products_provider.dart';
 import '../main_provider/wishList_provider.dart';
+import '../service/golobal_method.dart';
 import '../utils/utils.dart';
 import '../widgets/heart_button_widget.dart';
 
@@ -296,7 +297,7 @@ final viewedProvider=Provider.of<ViewedProvider>(context);
                                   color: Colors.red,
                                   borderRadius: BorderRadius.circular(10),
                                   child: InkWell(
-                                    onTap: _isInCart?null: (){
+                                    onTap: _isInCart?null: ()async{
 
                                       final User? user=authInstance.currentUser;
                                       // print("User id is ${user!.uid}");
@@ -324,11 +325,11 @@ final viewedProvider=Provider.of<ViewedProvider>(context);
                                       }
 
 
-
-                                      cartProvider.addProductsToCart(
-                                          productId: getCurrentProduct.id,
-                                          quantity: int.parse(_quantityTextConroller.text));
-                                      
+                                 await     GlobalMethods.addToCart(productId: getCurrentProduct.id, quantity: int.parse(_quantityTextConroller.text), context: context);
+                                      // cartProvider.addProductsToCart(
+                                      //     productId: getCurrentProduct.id,
+                                      //     quantity: int.parse(_quantityTextConroller.text));
+                                   await   cartProvider.fetchCart();
                                     },
                                     child: Padding(
                                       padding: const EdgeInsets.all(12.0),

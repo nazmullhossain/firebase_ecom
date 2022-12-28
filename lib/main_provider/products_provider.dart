@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 import '../models/products_models.dart';
 
 class ProductProvider with ChangeNotifier{
-static final List<ProductModel> _productsList=[];
+static  List<ProductModel> _productsList=[];
   List<ProductModel>get getProducts{
     return _productsList;
   }
@@ -16,7 +16,9 @@ static final List<ProductModel> _productsList=[];
   Future<void>fetchProduct()async{
     final firestore=FirebaseFirestore.instance;
   await  firestore.collection("products").get().then((QuerySnapshot productSnapshot) {
-productSnapshot.docs.forEach((element) {
+_productsList=[];
+// _productsList.clear();
+    productSnapshot.docs.forEach((element) {
   _productsList.insert(0, ProductModel(
       title: element.get('title'),
       price: double.parse(element.get('price'),),

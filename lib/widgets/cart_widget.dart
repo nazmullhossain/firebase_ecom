@@ -56,10 +56,9 @@ class _CartWidgetState extends State<CartWidget> {
         ? getCurrentProduct.salePrice
         : getCurrentProduct.price;
 
-
-    final wishListProvider=Provider.of<WishListProvider>(context);
-    bool?_isInWishList=wishListProvider.getWishListItem.containsKey(getCurrentProduct.id);
-
+    final wishListProvider = Provider.of<WishListProvider>(context);
+    bool? _isInWishList =
+        wishListProvider.getWishListItem.containsKey(getCurrentProduct.id);
 
     return GestureDetector(
       onTap: () {
@@ -191,9 +190,8 @@ class _CartWidgetState extends State<CartWidget> {
                       child: Column(
                         children: [
                           InkWell(
-                            onTap: () {
-                              cartProvider.removeOneItem(cartModel.productId);
-
+                            onTap: () async{
+                           await   cartProvider.removeOneItem(productId: cartModel.productId, cartId: cartModel.id, qunaitty: cartModel.quantity);
                             },
                             child: Icon(
                               CupertinoIcons.cart_badge_minus,
@@ -211,7 +209,7 @@ class _CartWidgetState extends State<CartWidget> {
                               color: color,
                               maxLines: 1,
                               textSize: 18,
-                              text: "\$${userPrice.toStringAsFixed(2)}")
+                              text: "\$${(userPrice *int.parse(_quantityTextContorller.text)).toStringAsFixed(2)}")
                         ],
                       ),
                     ),
