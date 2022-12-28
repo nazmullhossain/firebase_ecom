@@ -76,6 +76,7 @@ class WishListProvider with ChangeNotifier {
   }
 
 
+
   Future<void> clearOnlineWishlist() async {
     final userCollection = FirebaseFirestore.instance.collection('users');
     final User? user = authInstance.currentUser;
@@ -87,7 +88,15 @@ class WishListProvider with ChangeNotifier {
   }
 
   void clearLocalWishlist() {
-    _wishListItem.clear();
-    notifyListeners();
-  }
-}
+// new code generate
+    void removeOneItem(String productId) {
+      _wishListItem.remove(productId);
+      notifyListeners();
+    }
+
+
+    void clearWishList() {
+      _wishListItem.clear();
+      notifyListeners();
+    }
+  }}
