@@ -276,7 +276,7 @@ bool _isLoading=false;
                     ),
                     const SizedBox(height: 10,),
                     AuthButtonWidget(buttonText: "Continue as a gusest", onPressed: (){
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>BottomBarPage()));
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>const FetchPage()));
                     },primary: Colors.black,),
                     const SizedBox(height: 10,),
                     RichText(text:  TextSpan(text: "Dont\t have an account?",style: TextStyle(color: Colors.white,fontSize: 18),

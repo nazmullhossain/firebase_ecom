@@ -10,6 +10,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:provider/provider.dart';
 
 import '../../consts/firebase_const.dart';
+import '../../service/golobal_method.dart';
 import '../../utils/utils.dart';
 
 class ViewedWidget extends StatelessWidget {
@@ -39,7 +40,7 @@ class ViewedWidget extends StatelessWidget {
         // height: size.height*0.2,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8), color: Colors.red),
-        child: IconButton(onPressed:_isInCart?null: () {
+        child: IconButton(onPressed:_isInCart?null: ()async {
           final User? user=authInstance.currentUser;
           print("User id is ${user!.uid}");
           if(user==null){
@@ -65,10 +66,11 @@ class ViewedWidget extends StatelessWidget {
             return;
           }
 
-
-          cartProvider.addProductsToCart(
-              productId: getCurrentProduct.id,
-              quantity: 1);
+       await   GlobalMethods.addToCart(productId: getCurrentProduct.id, quantity: 1, context: context);
+         await cartProvider.fetchCart();
+          // cartProvider.addProductsToCart(
+          //     productId: getCurrentProduct.id,
+          //     quantity: 1);
         },
             icon: Icon(_isInCart?
             Icons.check

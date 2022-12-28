@@ -13,6 +13,7 @@ import 'package:provider/provider.dart';
 
 import '../consts/firebase_const.dart';
 import '../main_provider/cart_provider.dart';
+import '../service/golobal_method.dart';
 import '../utils/utils.dart';
 import 'heart_button_widget.dart';
 
@@ -156,7 +157,7 @@ bool?_isInWishList=wishListProvider.getWishListItem.containsKey(productModel.id)
                 ),
               ),
 
-             ElevatedButton(onPressed: _isInCart?null: (){
+             ElevatedButton(onPressed: _isInCart?null: () async{
                final User? user=authInstance.currentUser;
                // print("User id is ${user!.uid}");
                if(user==null){
@@ -182,11 +183,11 @@ bool?_isInWishList=wishListProvider.getWishListItem.containsKey(productModel.id)
                  return;
                }
 
-
-
-               cartProvider.addProductsToCart
-                 (productId: productModel.id,
-                   quantity: int.parse(_quantityTextController.text));
+               await   GlobalMethods.addToCart(productId: productModel.id, quantity: int.parse(_quantityTextController.text), context: context);
+         await   cartProvider.fetchCart();
+               // cartProvider.addProductsToCart
+               //   (productId: productModel.id,
+               //     quantity: int.parse(_quantityTextController.text));
              }, child: Text( _isInCart?"প্রডাক্ট যোগ হয়েছে":  "Add to Cart"))
             ],
           ),

@@ -1,4 +1,5 @@
 import 'package:firecom/main_provider/cart_provider.dart';
+import 'package:firecom/main_provider/products_provider.dart';
 import 'package:firecom/widgets/text_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
@@ -24,7 +25,16 @@ class _CartPageState extends State<CartPage> {
     final Color color = Utils(context).color;
     final Size size = Utils(context).screenSize;
     final cartProvider = Provider.of<CartProvider>(context);
+    final productProvider = Provider.of<ProductProvider>(context);
     final cartItemList = cartProvider.getCartItem.values.toList().reversed.toList();
+    double total=0.0;
+    cartProvider.getCartItem.forEach((key, value) { 
+      final getCurrentProduct=
+          productProvider.findProdById(value.productId);
+      total +=(getCurrentProduct.isOneSale?
+      getCurrentProduct.salePrice:
+      getCurrentProduct.price)*value.quantity;
+    });
     return Scaffold(
         // appBar: AppBar(
         //   actions: [
@@ -78,8 +88,9 @@ class _CartPageState extends State<CartPage> {
                                             },
                                             child: Text("cancel")),
                                         TextButton(
-                                            onPressed: () {
-                                              cartProvider.clearCart();
+                                            onPressed: () async{
+                                            await  cartProvider.clearOnlineCart();
+                                              cartProvider.clearLocalCart();
 
                                               if(Navigator.canPop(context)){
                                                 Navigator.pop(context);
@@ -128,7 +139,7 @@ class _CartPageState extends State<CartPage> {
                                   color: color,
                                   maxLines: 1,
                                   textSize: 18,
-                                  text: "Total: \$0.259",
+                                  text: "Total: \$${total.toStringAsFixed(2)}",
                                   isTitle: true,
                                 ),
                               )

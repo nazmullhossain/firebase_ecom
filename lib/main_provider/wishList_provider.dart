@@ -22,11 +22,15 @@ class WishListProvider with ChangeNotifier {
     }
     notifyListeners();
   }
-
+// new code generate
   void removeOneItem(String productId) {
     _wishListItem.remove(productId);
     notifyListeners();
   }
+
+
+
+
 
   void clearWishList() {
     _wishListItem.clear();
