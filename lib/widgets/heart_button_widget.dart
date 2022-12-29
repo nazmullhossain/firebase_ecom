@@ -12,14 +12,21 @@ import '../main_provider/products_provider.dart';
 import '../service/golobal_method.dart';
 import '../utils/utils.dart';
 
-class HeartButtonWidget extends StatelessWidget {
+class HeartButtonWidget extends StatefulWidget {
   const HeartButtonWidget({Key? key, required this.productId,  this.isInWishList=false}) : super(key: key);
 final String productId;
 final bool? isInWishList;
+
+  @override
+  State<HeartButtonWidget> createState() => _HeartButtonWidgetState();
+}
+
+class _HeartButtonWidgetState extends State<HeartButtonWidget> {
+  bool loading=false;
   @override
   Widget build(BuildContext context) {
     final productProvider = Provider.of<ProductProvider>(context);
-    final getCurrProduct = productProvider.findProdById(productId);
+    final getCurrProduct = productProvider.findProdById(widget.productId);
     final Utils utils = Utils(context);
 
     final Color color = Utils(context).color;
@@ -27,12 +34,15 @@ final bool? isInWishList;
     final wishListProvider=Provider.of<WishListProvider>(context);
     // final productProvider=Provider.of<ProductProvider>(context);
 
-    final getCurrrentProduct=productProvider.findProdById(productId);
+    final getCurrrentProduct=productProvider.findProdById(widget.productId);
 
     // final bool?isInWishlist;
     return GestureDetector(
 
       onTap: () async{
+        setState(() {
+          loading=true;
+        });
 
         try {
           final User? user = authInstance.currentUser;
@@ -43,20 +53,26 @@ final bool? isInWishList;
                 context: context);
             return;
           }
-          if (isInWishList == false && isInWishList != null) {
+          if (widget.isInWishList == false && widget.isInWishList != null) {
             await GlobalMethods.addToWishList(
-                productId: productId, context: context);
+                productId: widget.productId, context: context);
           } else {
      await   wishListProvider.removeOneItem(
     wishlistId: wishListProvider.getWishListItem[getCurrProduct.id]!.id,
-    productId: productId);
+    productId: widget.productId);
           }
           await wishListProvider.fetchWishlist();
+          setState(() {
+            loading=false;
+          });
 
         } catch (error) {
           GlobalMethods.errorDialog(subtitle: '$error', context: context);
-        } finally {
 
+        } finally {
+setState(() {
+  loading=false;
+});
         }
 
 
@@ -87,10 +103,15 @@ final bool? isInWishList;
         // wishListProvider.addRemoveProductToWishList(productId: productId);
 
       },
-      child: Icon(isInWishList != null &&isInWishList==true ?IconlyBold.heart:
+      child:loading?SizedBox(height: 20,width: 20,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: CircularProgressIndicator(),
+      ),
+      ): Icon(widget.isInWishList != null &&widget.isInWishList==true ?IconlyBold.heart:
         IconlyLight.heart,
         size: 22,
-        color: isInWishList !=null && isInWishList==true  ?Colors.red:color,
+        color: widget.isInWishList !=null && widget.isInWishList==true  ?Colors.red:color,
       ),
     );
   }

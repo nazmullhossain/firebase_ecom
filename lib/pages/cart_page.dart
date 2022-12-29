@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import '../emty_page.dart';
 import '../utils/utils.dart';
 import '../widgets/cart_widget.dart';
+import 'checkout_page.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({Key? key}) : super(key: key);
@@ -121,7 +122,9 @@ class _CartPageState extends State<CartPage> {
                                 color: Colors.green,
                                 borderRadius: BorderRadius.circular(10),
                                 child: InkWell(
-                                  onTap: () {},
+                                  onTap: () {
+                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>CheckOutPage()));
+                                  },
                                   borderRadius: BorderRadius.circular(10),
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
