@@ -104,7 +104,7 @@ final viewedProvider=Provider.of<ViewedProvider>(context);
                 flex: 3,
                 child: Container(
                   decoration: BoxDecoration(
-                      color: Theme.of(context).backgroundColor,
+                      // color: Theme.of(context).backgroundColor,
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(40),
                         topRight: Radius.circular(40),

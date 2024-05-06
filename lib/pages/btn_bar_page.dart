@@ -1,4 +1,4 @@
-import 'package:badges/badges.dart';
+import 'package:badges/badges.dart' as badges;
 import 'package:firecom/main_provider/cart_provider.dart';
 import 'package:firecom/pages/home_page.dart';
 import 'package:firecom/pages/user_page.dart';
@@ -70,9 +70,9 @@ final  List <Map<String,dynamic>>_page =[
               icon:
               Consumer<CartProvider>(
                 builder: (context,myCart,ch) {
-                  return Badge(
+                  return badges. Badge(
                       toAnimate: true,
-                      shape: BadgeShape.circle,
+                      shape:badges. BadgeShape.circle,
                       badgeColor: Colors.blue,
                       borderRadius: BorderRadius.circular(8),
                       badgeContent: Text(myCart.getCartItem.length.toString(), style: const TextStyle(color: Colors.white)),

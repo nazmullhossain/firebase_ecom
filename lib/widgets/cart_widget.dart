@@ -74,7 +74,7 @@ class _CartWidgetState extends State<CartWidget> {
               padding: const EdgeInsets.all(3.0),
               child: Container(
                 decoration: BoxDecoration(
-                    color: Theme.of(context).backgroundColor.withOpacity(0.3),
+                    // color: Theme.of(context).backgroundColor.withOpacity(0.3),
                     borderRadius: BorderRadius.circular(12)),
                 child: Row(
                   children: [
